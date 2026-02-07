@@ -1,4 +1,5 @@
-# HomePro - Home Services Booking Platform
+<p align="center"># HomePro - Home Services Booking Platform</p>
+
 
 A modern, full-stack web application for booking professional home services. Built with a sleek dark theme, glassmorphism UI, and smooth animations.
 
