@@ -1,4 +1,4 @@
-<p align="center"> # A first-level heading </p>
+# HomePro - Home Services Booking Platform
 
 
 A modern, full-stack web application for booking professional home services. Built with a sleek dark theme, glassmorphism UI, and smooth animations.
