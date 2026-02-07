@@ -2,7 +2,7 @@
 
 A modern, full-stack web application for booking professional home services. Built with a sleek dark theme, glassmorphism UI, and smooth animations.
 
-![HomePro Banner]<img width="1457" height="713" alt="Screenshot 2026-02-06 at 3 53 34 PM" src="https://github.com/user-attachments/assets/7ae89356-c22b-431e-a847-60463278b274" />
+<img width="1457" height="713" alt="Screenshot 2026-02-06 at 3 53 34 PM" src="https://github.com/user-attachments/assets/7ae89356-c22b-431e-a847-60463278b274" />
 
 ## 🌟 Features
 
