@@ -23,7 +23,7 @@ const app = express();
 app.use(cors({
   origin: [
     'http://localhost:5173',
-    'https://home-pro-web.vercel.app',
+    'https://homeproweb.vercel.app',
     process.env.FRONTEND_URL
   ].filter(Boolean),
   credentials: true
