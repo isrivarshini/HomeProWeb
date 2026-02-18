@@ -1,7 +1,13 @@
 import Stripe from 'stripe';
-import supabase  from '../config/supabase.js';
+import supabase from '../config/supabase.js';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+// Initialize Stripe lazily (after env is loaded)
+const getStripe = () => {
+  if (!process.env.STRIPE_SECRET_KEY) {
+    throw new Error('STRIPE_SECRET_KEY is not set');
+  }
+  return new Stripe(process.env.STRIPE_SECRET_KEY);
+};
 
 // Create payment intent
 export const createPaymentIntent = async (req, res) => {
