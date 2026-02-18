@@ -9,7 +9,7 @@ import providerRoutes from './routes/providerRoutes.js';
 import bookingRoutes from './routes/bookingRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import reviewRoutes from './routes/reviewRoutes.js';
-
+import paymentRoutes from './routes/paymentRoutes.js';
 // Import middleware
 import { errorHandler, notFound } from './middleware/errorHandler.js';
 
@@ -53,7 +53,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api', providerRoutes); // Categories and providers
 app.use('/api', bookingRoutes);
 app.use('/api/user', userRoutes);
-
+app.use('/api/payments', paymentRoutes);
 // Error handling middleware (must be last)
 app.use(notFound);
 app.use(errorHandler);
