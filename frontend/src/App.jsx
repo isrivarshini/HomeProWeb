@@ -8,7 +8,12 @@ import { AuthProvider } from './context/AuthContext';
 import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
-import ServiceProvidersPage from './pages/ServiceProvidersPage';
+import ProvidersListPage from './pages/ProvidersListPage'; 
+import ProviderDetailPage from './pages/ProviderDetailPage'; 
+import MyBookingsPage from './pages/MyBookingsPage';
+import ProfilePage from './pages/ProfilePage'; 
+import BookingDetailPage from './pages/BookingDetailPage';
+import CreateReviewPage from './pages/CreateReviewPage'; 
 function App() {
   return (
     <ThemeProvider theme={theme}>
@@ -21,7 +26,12 @@ function App() {
               <Route path="/" element={<LandingPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/signup" element={<SignupPage />} />
-              <Route path="/services/:categoryId" element={<ServiceProvidersPage />} /> 
+              <Route path="/services/:categoryId" element={<ProvidersListPage />} /> 
+              <Route path="/providers/:providerId" element={<ProviderDetailPage />} />
+              <Route path="/bookings" element={<MyBookingsPage />} />
+              <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/bookings/:bookingId" element={<BookingDetailPage />} />
+              <Route path="/reviews/create/:bookingId" element={<CreateReviewPage />} />
             </Routes>
           </AuthProvider>
         </BrowserRouter>
