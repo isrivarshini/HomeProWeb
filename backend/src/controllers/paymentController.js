@@ -12,6 +12,7 @@ const getStripe = () => {
 // Create payment intent
 export const createPaymentIntent = async (req, res) => {
   try {
+    const stripe = getStripe();
     const { booking_id } = req.body;
     const user_id = req.user.id;
 
@@ -59,6 +60,7 @@ export const createPaymentIntent = async (req, res) => {
 // Confirm payment and update booking
 export const confirmPayment = async (req, res) => {
   try {
+    const stripe = getStripe();
     const { booking_id, payment_intent_id } = req.body;
     const user_id = req.user.id;
 
