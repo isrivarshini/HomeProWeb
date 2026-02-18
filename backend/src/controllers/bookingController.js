@@ -132,41 +132,32 @@ export const getUserBookings = async (req, res) => {
       .from('bookings')
       .select(`
         *,
-        service_providers (
-          business_name,
-          phone,
-          email,
-          rating
-        ),
-        addresses (
-          address_line1,
-          address_line2,
-          city,
-          state,
-          zip_code
-        )
+        provider:service_providers(*),
+        address:addresses(*)
       `)
-      .eq('user_id', user_id);
+      .eq('user_id', user_id)
+      .order('created_at', { ascending: false });
 
     // Filter by status if provided
     if (status) {
       query = query.eq('status', status);
     }
 
-    const { data: bookings, error } = await query.order('created_at', { ascending: false });
+    const { data: bookings, error } = await query;
 
     if (error) throw error;
 
-    res.status(HTTP_STATUS.OK).json({
+    res.status(200).json({
       success: true,
       count: bookings.length,
-      data: bookings
+      data: bookings,
     });
   } catch (error) {
     console.error('Get bookings error:', error);
-    res.status(HTTP_STATUS.SERVER_ERROR).json({
+    res.status(500).json({
       success: false,
-      message: 'Error fetching bookings'
+      message: 'Server error',
+      error: error.message,
     });
   }
 };
@@ -183,52 +174,34 @@ export const getBookingById = async (req, res) => {
       .from('bookings')
       .select(`
         *,
-        service_providers (
-          business_name,
-          phone,
-          email,
-          rating,
-          description
-        ),
-        addresses (
-          address_line1,
-          address_line2,
-          city,
-          state,
-          zip_code
-        ),
-        payments (
-          id,
-          amount,
-          status,
-          payment_method,
-          transaction_date
-        )
+        provider:service_providers(*),
+        address:addresses(*),
+        payment:payments(*)
       `)
       .eq('id', id)
       .eq('user_id', user_id)
       .single();
 
     if (error || !booking) {
-      return res.status(HTTP_STATUS.NOT_FOUND).json({
+      return res.status(404).json({
         success: false,
-        message: 'Booking not found'
+        message: 'Booking not found',
       });
     }
 
-    res.status(HTTP_STATUS.OK).json({
+    res.status(200).json({
       success: true,
-      data: booking
+      data: booking,
     });
   } catch (error) {
     console.error('Get booking error:', error);
-    res.status(HTTP_STATUS.SERVER_ERROR).json({
+    res.status(500).json({
       success: false,
-      message: 'Error fetching booking'
+      message: 'Server error',
+      error: error.message,
     });
   }
 };
-
 // @desc    Cancel booking
 // @route   PUT /api/bookings/:id/cancel
 // @access  Private

@@ -2,7 +2,7 @@ import { AppBar, Toolbar, Typography, Button, Box, Container } from '@mui/materi
 import { motion } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-
+import Logo from './Logo/Logo';
 const Navbar = () => {
   const { isAuthenticated, logout, user } = useAuth();
   const navigate = useNavigate();
@@ -24,21 +24,26 @@ const Navbar = () => {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
+            style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer' }}
+            onClick={() => navigate('/')}
           >
+            <Logo size={36} animated={false} />
             <Typography 
               variant="h5" 
               component="div" 
               sx={{ 
                 fontWeight: 700,
                 color: 'primary.main',
-                cursor: 'pointer',
-                letterSpacing: '-0.02em'
+                letterSpacing: '-0.02em',
+                background: 'linear-gradient(135deg, #8B5CF6 0%, #6366F1 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
               }}
-              onClick={() => navigate('/')}
             >
               HomePro
             </Typography>
           </motion.div>
+          
 
           {/* Navigation Links */}
           <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
