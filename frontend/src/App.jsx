@@ -15,6 +15,7 @@ import ProfilePage from './pages/ProfilePage';
 import BookingDetailPage from './pages/BookingDetailPage';
 import CreateReviewPage from './pages/CreateReviewPage'; 
 import Footer from './components/Footer'; 
+import PaymentPage from './pages/PaymentPage'; 
 function App() {
   return (
     <ThemeProvider theme={theme}>
@@ -34,6 +35,7 @@ function App() {
                 <Route path="/bookings/:bookingId" element={<BookingDetailPage />} />
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/reviews/create/:bookingId" element={<CreateReviewPage />} />
+                <Route path="/payment" element={<PaymentPage />} />
               </Routes>
             </Box>
             <Footer />

@@ -94,44 +94,49 @@ const ProviderDetailPage = () => {
   };
 
   const handleBooking = async (e) => {
-    e.preventDefault();
-    
-    if (!isAuthenticated) {
-      navigate('/login');
-      return;
-    }
+  e.preventDefault();
+  
+  if (!isAuthenticated) {
+    navigate('/login');
+    return;
+  }
 
-    if (!bookingForm.address_id) {
-      setError('Please select an address');
-      return;
-    }
+  if (!bookingForm.address_id) {
+    setError('Please select an address');
+    return;
+  }
 
-    setBookingLoading(true);
-    setError('');
+  setBookingLoading(true);
+  setError('');
 
-    try {
-      const bookingData = {
-        provider_id: providerId,
-        address_id: bookingForm.address_id,
-        service_date: bookingForm.service_date,
-        service_time: bookingForm.service_time,
-        estimated_hours: parseFloat(bookingForm.estimated_hours),
-        notes: bookingForm.notes,
-      };
+  try {
+    const bookingData = {
+      provider_id: providerId,
+      address_id: bookingForm.address_id,
+      service_date: bookingForm.service_date,
+      service_time: bookingForm.service_time,
+      estimated_hours: parseFloat(bookingForm.estimated_hours),
+      notes: bookingForm.notes,
+    };
 
-      await bookingAPI.create(bookingData);
-      setSuccess('Booking created successfully!');
-      
-      // Redirect to bookings page after 2 seconds
-      setTimeout(() => {
-        navigate('/bookings');
-      }, 2000);
-    } catch (error) {
-      setError(error.response?.data?.message || 'Failed to create booking');
-    } finally {
-      setBookingLoading(false);
-    }
-  };
+    const response = await bookingAPI.create(bookingData);
+    const booking = response.data.data;
+
+    // Redirect to payment page instead of bookings
+    navigate('/payment', {
+      state: {
+        bookingId: booking.id,
+        providerName: provider.business_name,
+        date: bookingForm.service_date,
+        time: bookingForm.service_time,
+        amount: (provider.hourly_rate * bookingForm.estimated_hours).toFixed(2),
+      },
+    });
+  } catch (error) {
+    setError(error.response?.data?.message || 'Failed to create booking');
+    setBookingLoading(false);
+  }
+};
 
   if (loading) {
     return (
