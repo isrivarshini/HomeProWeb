@@ -1,5 +1,5 @@
 import Stripe from 'stripe';
-import { supabase } from '../config/supabase.js';
+import supabase  from '../config/supabase.js';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
