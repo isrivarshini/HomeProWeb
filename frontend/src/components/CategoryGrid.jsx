@@ -140,25 +140,29 @@ const CategoryGrid = () => {
                     position: 'relative',
                     zIndex: 1,
                   }}>
-                    {/* Icon with gradient background */}
+                    {/* Category Image */}
                     <Box
                       sx={{
                         width: 80,
                         height: 80,
                         borderRadius: '20px',
-                        background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.15) 0%, rgba(124, 58, 237, 0.15) 100%)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
+                        overflow: 'hidden',
                         margin: '0 auto 20px',
-                        fontSize: '2.5rem',
                         transition: 'transform 0.3s ease',
                         '.MuiCard-root:hover &': {
                           transform: 'scale(1.1) rotate(-5deg)',
                         },
                       }}
                     >
-                      {getCategoryEmoji(category.name)}
+                      <img
+                        src={category.icon_url || `https://ui-avatars.com/api/?name=${category.name}&background=8B5CF6&color=fff&size=200`}
+                        alt={category.name}
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover',
+                        }}
+                      />
                     </Box>
 
                     {/* Category name */}
