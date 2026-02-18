@@ -14,25 +14,29 @@ import MyBookingsPage from './pages/MyBookingsPage';
 import ProfilePage from './pages/ProfilePage'; 
 import BookingDetailPage from './pages/BookingDetailPage';
 import CreateReviewPage from './pages/CreateReviewPage'; 
+import Footer from './components/Footer'; 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <GlobalStyles />
-      <Box sx={{ backgroundColor: '#0A0A0A', minHeight: '100vh' }}>
+      <Box sx={{ backgroundColor: '#0A0A0A', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
         <BrowserRouter>
           <AuthProvider>
-            <Routes>
-              <Route path="/" element={<LandingPage />} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/signup" element={<SignupPage />} />
-              <Route path="/services/:categoryId" element={<ProvidersListPage />} /> 
-              <Route path="/providers/:providerId" element={<ProviderDetailPage />} />
-              <Route path="/bookings" element={<MyBookingsPage />} />
-              <Route path="/profile" element={<ProfilePage />} />
-              <Route path="/bookings/:bookingId" element={<BookingDetailPage />} />
-              <Route path="/reviews/create/:bookingId" element={<CreateReviewPage />} />
-            </Routes>
+            <Box sx={{ flex: 1 }}>
+              <Routes>
+                <Route path="/" element={<LandingPage />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/signup" element={<SignupPage />} />
+                <Route path="/services/:categoryId" element={<ProvidersListPage />} />
+                <Route path="/providers/:providerId" element={<ProviderDetailPage />} />
+                <Route path="/bookings" element={<MyBookingsPage />} />
+                <Route path="/bookings/:bookingId" element={<BookingDetailPage />} />
+                <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/reviews/create/:bookingId" element={<CreateReviewPage />} />
+              </Routes>
+            </Box>
+            <Footer />
           </AuthProvider>
         </BrowserRouter>
       </Box>

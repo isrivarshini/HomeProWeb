@@ -128,7 +128,7 @@ const LandingPage = () => {
             >
               <Typography
                 sx={{
-                  fontSize: { xs: '3.5rem', md: '6rem', lg: '7rem' },
+                  fontSize: { xs: '2.5rem', sm: '4rem', md: '6rem', lg: '7rem' }, // Changed xs from 3.5rem
                   fontWeight: 900,
                   lineHeight: 0.95,
                   letterSpacing: '-0.04em',
@@ -149,7 +149,7 @@ const LandingPage = () => {
               </Typography>
               <Typography
                 sx={{
-                  fontSize: { xs: '3rem', md: '5rem', lg: '6rem' },
+                  fontSize: { xs: '2rem', sm: '3.5rem', md: '5rem', lg: '6rem' }, // Changed xs
                   fontWeight: 900,
                   lineHeight: 0.95,
                   letterSpacing: '-0.04em',
@@ -166,15 +166,16 @@ const LandingPage = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
             >
-              <Typography
-                sx={{
-                  maxWidth: 700,
-                  fontWeight: 400,
-                  lineHeight: 1.6,
-                  color: '#A1A1AA',
-                  fontSize: { xs: '1.125rem', md: '1.25rem' },
-                }}
-              >
+            <Typography
+              sx={{
+                maxWidth: 700,
+                fontWeight: 400,
+                lineHeight: 1.6,
+                color: '#A1A1AA',
+                fontSize: { xs: '1rem', sm: '1.125rem', md: '1.25rem' }, // Changed xs
+                px: { xs: 2, sm: 0 }, // Add padding on mobile
+              }}
+            >
                 Say goodbye to expensive freelancers, and hello to{' '}
                 <Box component="span" sx={{ fontStyle: 'italic', color: '#8B5CF6' }}>
                   limitless
