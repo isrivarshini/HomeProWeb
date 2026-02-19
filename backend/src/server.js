@@ -21,11 +21,28 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: [
-    'http://localhost:5173',
-    'https://homeproweb.vercel.app',
-    process.env.FRONTEND_URL
-  ].filter(Boolean),
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl)
+    if (!origin) return callback(null, true);
+    
+    // Allow localhost and Vercel domains
+    const allowedOrigins = [
+      'http://localhost:5173',
+      'https://homeproweb.vercel.app',
+      process.env.FRONTEND_URL
+    ];
+    
+    // Allow any Vercel preview URL
+    if (origin.includes('.vercel.app')) {
+      return callback(null, true);
+    }
+    
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    
+    return callback(new Error('Not allowed by CORS'));
+  },
   credentials: true
 }));
 app.use(express.json());
