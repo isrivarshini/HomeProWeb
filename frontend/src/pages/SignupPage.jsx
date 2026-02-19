@@ -275,7 +275,43 @@ const SignupPage = () => {
                   required
                   fullWidth
                 />
+                {/* Google Login Button */}
+                <Button
+                  variant="outlined"
+                  size="large"
+                  fullWidth
+                  startIcon={<GoogleIcon />}
+                  onClick={handleGoogleLogin}
+                  sx={{
+                    py: 1.5,
+                    borderColor: 'rgba(255, 255, 255, 0.2)',
+                    color: '#FFFFFF',
+                    '&:hover': {
+                      borderColor: '#8B5CF6',
+                      backgroundColor: 'rgba(139, 92, 246, 0.1)',
+                    },
+                  }}
+                >
+                  Continue with Google
+                </Button>
 
+                <Box sx={{ position: 'relative', my: 2 }}>
+                  <Divider sx={{ borderColor: 'rgba(255, 255, 255, 0.1)' }} />
+                  <Typography
+                    sx={{
+                      position: 'absolute',
+                      top: '50%',
+                      left: '50%',
+                      transform: 'translate(-50%, -50%)',
+                      backgroundColor: '#111111',
+                      px: 2,
+                      color: '#A1A1AA',
+                      fontSize: '0.875rem',
+                    }}
+                  >
+                    OR
+                  </Typography>
+                </Box>
                 <Button
                   type="submit"
                   variant="contained"
