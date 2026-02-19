@@ -10,7 +10,7 @@ import {
   Link,
   InputAdornment,
   IconButton,
-  Divider, // Add this
+  Divider,
 } from '@mui/material';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
@@ -18,8 +18,10 @@ import { useAuth } from '../context/AuthContext';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import GrainOverlay from '../components/GrainOverlay';
 import GoogleIcon from '@mui/icons-material/Google';
+import GrainOverlay from '../components/GrainOverlay';
+import { supabase } from '../services/supabase';
+
 const SignupPage = () => {
   const navigate = useNavigate();
   const { signup } = useAuth();
@@ -40,6 +42,22 @@ const SignupPage = () => {
       [e.target.name]: e.target.value,
     });
     setError('');
+  };
+
+  const handleGoogleLogin = async () => {
+    try {
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/`,
+        },
+      });
+
+      if (error) throw error;
+    } catch (error) {
+      console.error('Google login error:', error);
+      setError('Failed to login with Google');
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -208,6 +226,45 @@ const SignupPage = () => {
               </motion.div>
             )}
 
+            {/* Google Signup Button */}
+            <Button
+              variant="outlined"
+              size="large"
+              fullWidth
+              startIcon={<GoogleIcon />}
+              onClick={handleGoogleLogin}
+              sx={{
+                py: 1.5,
+                mb: 3,
+                borderColor: 'rgba(255, 255, 255, 0.2)',
+                color: '#FFFFFF',
+                '&:hover': {
+                  borderColor: '#8B5CF6',
+                  backgroundColor: 'rgba(139, 92, 246, 0.1)',
+                },
+              }}
+            >
+              Continue with Google
+            </Button>
+
+            <Box sx={{ position: 'relative', mb: 3 }}>
+              <Divider sx={{ borderColor: 'rgba(255, 255, 255, 0.1)' }} />
+              <Typography
+                sx={{
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  backgroundColor: '#111111',
+                  px: 2,
+                  color: '#A1A1AA',
+                  fontSize: '0.875rem',
+                }}
+              >
+                OR
+              </Typography>
+            </Box>
+
             {/* Signup Form */}
             <form onSubmit={handleSubmit}>
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
@@ -276,43 +333,7 @@ const SignupPage = () => {
                   required
                   fullWidth
                 />
-                {/* Google Login Button */}
-                <Button
-                  variant="outlined"
-                  size="large"
-                  fullWidth
-                  startIcon={<GoogleIcon />}
-                  onClick={handleGoogleLogin}
-                  sx={{
-                    py: 1.5,
-                    borderColor: 'rgba(255, 255, 255, 0.2)',
-                    color: '#FFFFFF',
-                    '&:hover': {
-                      borderColor: '#8B5CF6',
-                      backgroundColor: 'rgba(139, 92, 246, 0.1)',
-                    },
-                  }}
-                >
-                  Continue with Google
-                </Button>
 
-                <Box sx={{ position: 'relative', my: 2 }}>
-                  <Divider sx={{ borderColor: 'rgba(255, 255, 255, 0.1)' }} />
-                  <Typography
-                    sx={{
-                      position: 'absolute',
-                      top: '50%',
-                      left: '50%',
-                      transform: 'translate(-50%, -50%)',
-                      backgroundColor: '#111111',
-                      px: 2,
-                      color: '#A1A1AA',
-                      fontSize: '0.875rem',
-                    }}
-                  >
-                    OR
-                  </Typography>
-                </Box>
                 <Button
                   type="submit"
                   variant="contained"
