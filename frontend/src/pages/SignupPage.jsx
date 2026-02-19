@@ -10,6 +10,7 @@ import {
   Link,
   InputAdornment,
   IconButton,
+  Divider, // Add this
 } from '@mui/material';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
@@ -18,7 +19,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import GrainOverlay from '../components/GrainOverlay';
-
+import GoogleIcon from '@mui/icons-material/Google';
 const SignupPage = () => {
   const navigate = useNavigate();
   const { signup } = useAuth();
