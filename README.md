@@ -6,8 +6,6 @@ A modern, full-stack web application for booking professional home services with
 
 🌐 **Live Demo:** https://homeproweb.vercel.app
 
-📡 **API Backend:** https://homeproweb-production.up.railway.app
-
 ---
 
 ## 🎯 Project Overview
