@@ -5,6 +5,5 @@ import { protect } from '../middleware/auth.js';
 const router = express.Router();
 
 router.post('/create-payment-intent', protect, createPaymentIntent);
-router.post('/confirm-payment', protect, confirmPayment);
-
+router.post('/confirm', protect, confirmPayment);
 export default router;
