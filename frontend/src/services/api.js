@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import { supabase } from './supabase';
 // Use environment variable or fallback to production backend
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://homeproweb-production.up.railway.app/api';
 
@@ -13,16 +13,23 @@ const api = axios.create({
 
 // Add token to requests if it exists
 api.interceptors.request.use(
-  (config) => {
+  async (config) => {
+    // Try custom JWT first
     const token = localStorage.getItem('token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
+      return config;
     }
+
+    // Fall back to Supabase session token (Google OAuth)
+    const { data: { session } } = await supabase.auth.getSession();
+    if (session?.access_token) {
+      config.headers.Authorization = `Bearer ${session.access_token}`;
+    }
+
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
 // Auth endpoints
