@@ -5,10 +5,19 @@ import CategoryGrid from '../components/CategoryGrid';
 import Navbar from '../components/Navbar';
 import GrainOverlay from '../components/GrainOverlay';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const LandingPage = () => {
+  const { user, loading } = useAuth();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (!loading && user) {
+      navigate('/dashboard', { replace: true });
+    }
+  }, [user, loading, navigate]);
   return (
     <Box sx={{ position: 'relative', backgroundColor: '#0A0A0A' }}>
       <GrainOverlay />
