@@ -20,6 +20,7 @@ import DashboardPage from './pages/DashboardPage';
 import { Navigate } from 'react-router-dom';
 import { useAuth } from './context/AuthContext';
 import ServicesPage from './pages/ServicesPage';
+
 // Add this component before App()
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useAuth();
