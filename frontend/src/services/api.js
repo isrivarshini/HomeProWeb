@@ -61,5 +61,9 @@ export const userAPI = {
   updateAddress: (id, data) => api.put(`/user/addresses/${id}`, data),
   deleteAddress: (id) => api.delete(`/user/addresses/${id}`),
 };
-
+// Payment endpoints
+export const paymentAPI = {
+  createPaymentIntent: (data) => api.post('/payments/create-payment-intent', data),
+  confirmPayment: (data) => api.post('/payments/confirm', data),
+};
 export default api;
