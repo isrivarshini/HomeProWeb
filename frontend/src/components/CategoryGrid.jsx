@@ -9,18 +9,18 @@ const CategoryGrid = () => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  useEffect(() => {
+    useEffect(() => {
     const fetchCategories = async () => {
       try {
         const response = await categoryAPI.getAll();
+        console.log('Categories response:', response); // add this
         setCategories(response.data.data);
       } catch (error) {
-        console.error('Failed to fetch categories:', error);
+        console.error('Failed to fetch categories:', error); // already there
       } finally {
         setLoading(false);
       }
     };
-
     fetchCategories();
   }, []);
 
