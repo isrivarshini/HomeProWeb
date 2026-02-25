@@ -37,11 +37,10 @@ const statusConfig = {
 };
 
 const quickActions = [
-  { label: 'Book a Service',    icon: <AddIcon />,                  path: '/services',  accent: '#8B5CF6' },
-  { label: 'My Bookings',       icon: <CalendarTodayIcon />,        path: '/bookings',  accent: '#6366F1' },
-  { label: 'Browse Providers',  icon: <HomeRepairServiceIcon />,    path: '/providers', accent: '#A78BFA' },
+  { label: 'Book a Service',   icon: <AddIcon />,             path: '/services',  accent: '#8B5CF6' },
+  { label: 'My Bookings',      icon: <CalendarTodayIcon />,   path: '/bookings',  accent: '#6366F1' },
+  { label: 'My Profile',       icon: <HomeRepairServiceIcon />, path: '/profile', accent: '#A78BFA' },
 ];
-
 const containerVariants = {
   hidden: {},
   show: { transition: { staggerChildren: 0.08 } },
@@ -230,7 +229,7 @@ const DashboardPage = () => {
                     <Chip
                       key={cat.id}
                       label={cat.name}
-                      onClick={() => navigate(`/services?category=${cat.id}`)}
+                      onClick={() => navigate(`/services/${cat.id}`)}
                       sx={{
                         backgroundColor: 'rgba(139,92,246,0.1)',
                         color: '#A78BFA',
