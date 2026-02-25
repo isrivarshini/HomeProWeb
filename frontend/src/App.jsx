@@ -16,6 +16,17 @@ import BookingDetailPage from './pages/BookingDetailPage';
 import CreateReviewPage from './pages/CreateReviewPage'; 
 import Footer from './components/Footer'; 
 import PaymentPage from './pages/PaymentPage'; 
+import DashboardPage from './pages/DashboardPage';
+import { Navigate } from 'react-router-dom';
+import { useAuth } from './context/AuthContext';
+
+// Add this component before App()
+const ProtectedRoute = ({ children }) => {
+  const { user, loading } = useAuth();
+  if (loading) return null; // or a spinner
+  if (!user) return <Navigate to="/login" replace />;
+  return children;
+};
 function App() {
   return (
     <ThemeProvider theme={theme}>
@@ -31,11 +42,13 @@ function App() {
                 <Route path="/signup" element={<SignupPage />} />
                 <Route path="/services/:categoryId" element={<ProvidersListPage />} />
                 <Route path="/providers/:providerId" element={<ProviderDetailPage />} />
-                <Route path="/bookings" element={<MyBookingsPage />} />
-                <Route path="/bookings/:bookingId" element={<BookingDetailPage />} />
-                <Route path="/profile" element={<ProfilePage />} />
-                <Route path="/reviews/create/:bookingId" element={<CreateReviewPage />} />
-                <Route path="/payment" element={<PaymentPage />} />
+                <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
+                <Route path="/bookings" element={<ProtectedRoute><MyBookingsPage /></ProtectedRoute>} />
+                <Route path="/bookings/:bookingId" element={<ProtectedRoute><BookingDetailPage /></ProtectedRoute>} />
+                <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
+                <Route path="/reviews/create/:bookingId" element={<ProtectedRoute><CreateReviewPage /></ProtectedRoute>} />
+                <Route path="/payment" element={<ProtectedRoute><PaymentPage /></ProtectedRoute>} />
+                <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
               </Routes>
             </Box>
             <Footer />

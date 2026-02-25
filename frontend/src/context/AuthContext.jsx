@@ -42,6 +42,11 @@ export const AuthProvider = ({ children }) => {
         if (event === 'SIGNED_IN' && session) {
           setUser(session.user);
           setLoading(false);
+          // Only redirect if on auth pages, not if already inside app
+          const currentPath = window.location.pathname;
+          if (currentPath === '/' || currentPath === '/login' || currentPath === '/signup') {
+            window.location.href = '/dashboard'; // hard redirect to ensure clean state
+          }
         } else if (event === 'SIGNED_OUT') {
           setUser(null);
           setLoading(false);
