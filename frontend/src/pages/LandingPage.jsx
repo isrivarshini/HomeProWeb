@@ -6,7 +6,6 @@ import Navbar from '../components/Navbar';
 import GrainOverlay from '../components/GrainOverlay';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const LandingPage = () => {
