@@ -80,7 +80,7 @@ const CheckoutForm = ({ bookingData }) => {
 
       // Payment successful - confirm with backend
       await axios.post(
-        `${import.meta.env.VITE_API_URL || 'http://localhost:3001/api'}/payments/confirm-payment`,
+        `${import.meta.env.VITE_API_URL || 'http://localhost:3001/api'}/payments/confirm`,
         {
           booking_id: bookingData.bookingId,
           payment_intent_id: paymentIntent.id,
