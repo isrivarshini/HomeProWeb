@@ -1,5 +1,6 @@
 import { createContext, useState, useContext, useEffect } from 'react';
 import { authAPI } from '../services/api';
+import { supabase } from '../services/supabase';
 
 const AuthContext = createContext(null);
 
@@ -8,9 +9,18 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [token, setToken] = useState(localStorage.getItem('token'));
 
-  // Check if user is logged in on mount
   useEffect(() => {
     const checkAuth = async () => {
+      // First check Supabase session (Google OAuth)
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      if (session) {
+        setUser(session.user);
+        setLoading(false);
+        return;
+      }
+
+      // Fall back to JWT (email/password login)
       if (token) {
         try {
           const response = await authAPI.getMe();
@@ -25,6 +35,21 @@ export const AuthProvider = ({ children }) => {
     };
 
     checkAuth();
+
+    // Listen for Supabase auth state changes (OAuth redirect)
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      async (event, session) => {
+        if (event === 'SIGNED_IN' && session) {
+          setUser(session.user);
+          setLoading(false);
+        } else if (event === 'SIGNED_OUT') {
+          setUser(null);
+          setLoading(false);
+        }
+      }
+    );
+
+    return () => subscription.unsubscribe();
   }, [token]);
 
   const login = async (email, password) => {
@@ -63,14 +88,22 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const logout = () => {
+  const logout = async () => {
     localStorage.removeItem('token');
     setToken(null);
     setUser(null);
+    await supabase.auth.signOut();
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, signup, logout, isAuthenticated: !!user }}>
+    <AuthContext.Provider value={{ 
+      user, 
+      loading, 
+      login, 
+      signup, 
+      logout, 
+      isAuthenticated: !!user 
+    }}>
       {children}
     </AuthContext.Provider>
   );
