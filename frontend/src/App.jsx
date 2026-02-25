@@ -1,7 +1,8 @@
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Box } from '@mui/material';
+import { useAuth } from './context/AuthContext';
 import theme from './styles/theme';
 import GlobalStyles from './styles/GlobalStyles';
 import { AuthProvider } from './context/AuthContext';
@@ -17,8 +18,6 @@ import CreateReviewPage from './pages/CreateReviewPage';
 import Footer from './components/Footer'; 
 import PaymentPage from './pages/PaymentPage'; 
 import DashboardPage from './pages/DashboardPage';
-import { Navigate } from 'react-router-dom';
-import { useAuth } from './context/AuthContext';
 import ServicesPage from './pages/ServicesPage';
 // Add this component before App()
 const ProtectedRoute = ({ children }) => {
