@@ -19,7 +19,7 @@ import PaymentPage from './pages/PaymentPage';
 import DashboardPage from './pages/DashboardPage';
 import { Navigate } from 'react-router-dom';
 import { useAuth } from './context/AuthContext';
-
+import ServicesPage from './pages/ServicesPage';
 // Add this component before App()
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useAuth();
@@ -49,6 +49,8 @@ function App() {
                 <Route path="/reviews/create/:bookingId" element={<ProtectedRoute><CreateReviewPage /></ProtectedRoute>} />
                 <Route path="/payment" element={<ProtectedRoute><PaymentPage /></ProtectedRoute>} />
                 <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
+                <Route path="/services" element={<ProtectedRoute><ServicesPage /></ProtectedRoute>} />
+
               </Routes>
             </Box>
             <Footer />
